@@ -12,6 +12,24 @@ var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+var tables = [
+    {
+      routeName: "test1",
+      name: "Derek",
+      phoneNumber: "973-867-5309",
+      email: 'DA@gmail.com',
+      uniqueID: 1234
+    },
+    {
+        routeName: "test2",
+        name: "Minal",
+        phoneNumber: "908-200-0891",
+        email: 'Minal@gmail.com',
+        uniqueID: 1234
+      },
+    
+  ];
+  
 
 
 // Routes
@@ -41,11 +59,7 @@ app.get("/api/tables/:tables", function(req, res) {
 
   console.log(chosen);
 
-  for (var i = 0; i < tables.length; i++) {
-    if (chosen === tables[i].routeName) {
-      return res.json(tables[i]);
-    }
-  }
+  
 
   return res.json(false);
 });
