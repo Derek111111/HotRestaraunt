@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>HotRestaurents</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron" style="text-align: center">
+      <h1>HotRestaurents</h1>
+      <h3>Book your seat before they all are gone!</h3>
+      <hr>
+      <a href="/add"><button class="btn btn-danger btn-lg"><span class="fa fa-cutlery"></span> Home </button></a>
+      <a href="/all"><button class="btn btn-danger btn-lg"><span class="fa fa-th-list"></span> Make Reservation</button></a>
+    </div>
+    <div class="container">
+         <div class="jumbotron">
+             <div class="text-center">
+                 <a href="/">
+                    <button type="button" class="btn btnn-lg btn-default">
+                        <span></span>       <!--  -->
+                    </button>
+                 </a>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-lg-12">
+                 <div class="panel panel-default">
+                     <div class="panel-heading">
+                        <h4 class="panel-title">Current Reservations</h4>
+                     </div>
+                     <div class="panel-body" id="tableSection">
+
+                     </div>
+                     <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Waiting List</h4>
+                            </div>
+                            <div class="panel-body" id="waitlistSection">
+                            </div>
+                        </div>
+                 </div>
+             </div>
+             <footer class="footer">
+                    <div class="container">
+                        <p>Control Panel</p>
+                      <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
+                    </div>
+                  </footer>
+         </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $("#search-btn").on("click", function() {
+      var searchedCharacter = $("#character-search").val().trim();
+
+      // Using a RegEx Pattern to remove spaces from searchedCharacter
+      // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+      searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+
+      $.get("/api/characters/" + searchedCharacter, function(data) {
+        console.log(data);
+        if (data) {
+          $("#stats").show();
+          $("#name").text(data.name);
+          $("#role").text(data.role);
+          $("#age").text(data.age);
+          $("#force-points").text(data.forcePoints);
+        }
+        else {
+          $("#name").text("The force is not strong with this one. Your character was not found.");
+          $("#stats").hide();
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
